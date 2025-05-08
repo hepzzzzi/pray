@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사랑을 기도하는 디지털 신전</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 수평 스크롤 영역 시작 -->
+<div class="flash-overlay" id="flashOverlay"></div>
+
+  <!-- 신 1 : 파티의 신 -->
+    <!-- gif 콜라주 복원 (이제 썸네일 역할로 클래스 이름 변경) -->
+    <div class="gif-collage collage-19">
+      <img src="gif/thumb22.gif" class="thumbnail thumb-1" onclick="location.href='1.html'">
+      <img src="gif/thumb24.gif" class="thumbnail thumb-2" onclick="location.href='2.html'">
+      <img src="gif/thumb25.gif" class="thumbnail thumb-3" onclick="location.href='3.html'">
+      <img src="gif/thumb26.gif" class="thumbnail thumb-4" onclick="location.href='4.html'">
+      <img src="gif/thumb27.gif" class="thumbnail thumb-6" onclick="location.href='6.html'">
+      <img src="gif/thumb19.gif" class="thumbnail thumb-7" onclick="location.href='7.html'">
+      <img src="gif/thumb1.gif" class="thumbnail thumb-8" onclick="location.href='8.html'">
+      <img src="gif/thumb2.gif" class="thumbnail thumb-9" onclick="location.href='9.html'">
+      <img src="gif/thumb3.gif" class="thumbnail thumb-10" onclick="location.href='10.html'">
+      <img src="gif/thumb4.gif" class="thumbnail thumb-11" onclick="location.href='11.html'">
+      <img src="gif/thumb6.gif" class="thumbnail thumb-12" onclick="location.href='12.html'">
+      <img src="gif/thumb7.gif" class="thumbnail thumb-13" onclick="location.href='13.html'">
+      <img src="gif/thumb8.gif" class="thumbnail thumb-15" onclick="location.href='15.html'">
+      <img src="gif/thumb9.gif" class="thumbnail thumb-16" onclick="location.href='16.html'">
+      <img src="gif/thumb10.gif" class="thumbnail thumb-17" onclick="location.href='17.html'">
+      <img src="gif/thumb11.gif" class="thumbnail thumb-18" onclick="location.href='18.html'">
+      <img src="gif/thumb12.gif" class="thumbnail thumb-20" onclick="location.href='20.html'">
+      <img src="gif/thumb13.gif" class="thumbnail thumb-21" onclick="location.href='21.html'">
+      <img src="gif/thumb15.gif" class="thumbnail thumb-22" onclick="location.href='22.html'">
+      <img src="gif/thumb16.gif" class="thumbnail thumb-24" onclick="location.href='24.html'">
+      <img src="gif/thumb17.gif" class="thumbnail thumb-25" onclick="location.href='25.html'">
+      <img src="gif/thumb18.gif" class="thumbnail thumb-26" onclick="location.href='26.html'">
+      <img src="gif/thumb20.gif" class="thumbnail thumb-27" onclick="location.href='27.html'">
+    </div>
+
+    <!-- 좌우 기둥 -->
+    <img src="gif/pillarfire.gif" class="pillar left">
+    <img src="gif/pillarfire.gif" class="pillar right">
+
+    <!-- 메인 인형 & 인터랙션 -->
+    <div class="main-layout">
+      <div class="god">
+        <img src="img/god21.png" class="god-img">
+      </div>
+
+      <p class="response"></p>
+      <img src="gif/flash-01.gif" class="star-flash">
+
+    <div class="action-wrap">
+      <div class="candle-group left">
+        <img src="gif/pillarcandle.gif" class="candle">
+        <img src="gif/pillarcandle.gif" class="candle">
+        <img src="gif/pillarcandle.gif" class="candle">
+      </div>
+
+      <div class="info-block">
+        <div class="god-name">뒹굴뒹굴의 신</div>
+        <button class="pray-button" onclick="pray(this)">기도하기</button>
+      </div>
+
+      <div class="candle-group right">
+        <img src="gif/pillarcandle.gif" class="candle">
+        <img src="gif/pillarcandle.gif" class="candle">
+        <img src="gif/pillarcandle.gif" class="candle">
+      </div>
+    </div>
+
+
+<!-- 푸터 -->
+<div class="footer-credit">
+  GIF 출처: <a href="https://gifcities.org/" target="_blank">gifcities</a> 및 <a href="https://chatgpt.com/" target="_blank">ChatGPT</a>
+</div>
+
+<script>
+function pray(button) {
+    const responseEl = document.querySelector(".response");
+    const starFlash = document.querySelector(".star-flash");
+    const overlay = document.getElementById("flashOverlay");
+
+    // 버튼 비활성화
+    button.disabled = true;
+
+    // 응답 리스트
+    const responses = [
+        "이불의 품 안에서<br>평온이 깃들리라",
+        "핸드폰을 드는 순간<br>시간이 흐르지 않으리라",
+        "아무것도 하지 않아도<br>마음이 가벼우리라",
+        "침대가 너를 지키며<br>세상과 너를 가르리라",
+        "즐거움만 남고<br>손목과 눈은 온전하리라"
+    ];
+
+    // 랜덤 응답 선택
+    const r = Math.floor(Math.random() * responses.length);
+    responseEl.innerHTML = responses[r];
+
+    // 애니메이션 초기화
+    responseEl.style.opacity = "0";
+    starFlash.style.opacity = "1";  // 별 등장
+    overlay.style.opacity = "0";
+    overlay.classList.remove("fade-out");
+    overlay.classList.add("fade-in");
+
+    // 첫 깜빡임 시작 (빠르게 어두워지고 느리게 밝아짐)
+    setTimeout(() => {
+        overlay.style.transition = "opacity 0.4s ease";  // 빠르게 어두워짐
+        overlay.style.opacity = "0.8";  // 첫 깜빡임 - 중간 밝기
+
+        // 첫 깜빡임 후 바로 훨씬 천천히 밝아지기
+        setTimeout(() => {
+            overlay.style.transition = "opacity 1.5s ease";  // 훨씬 천천히 밝아짐
+            overlay.style.opacity = "0";  // 밝아짐
+
+            // 두 번째 깜빡임 시작 (잠시 머무름)
+            setTimeout(() => {
+                overlay.style.opacity = "0.8";  // 두 번째 깜빡임 - 약간 더 밝게
+
+                // 별 사라지기 (응답과 동시에)
+                setTimeout(() => {
+                    starFlash.style.transition = "opacity 1.3s ease";
+                    starFlash.style.opacity = "0";
+
+                    // 응답 서서히 등장
+                    setTimeout(() => {
+                        responseEl.style.transition = "opacity 2s ease";
+                        responseEl.style.opacity = "1";  // 응답 표시
+
+                        // 응답 유지 시간
+                        setTimeout(() => {
+                            responseEl.style.opacity = "0";  // 응답 사라짐
+
+                            // 별 다시 등장 (응답 사라진 후)
+                            setTimeout(() => {
+                                starFlash.style.opacity = "1";
+                                overlay.classList.add("fade-out");
+                                setTimeout(() => {
+                                    overlay.style.transition = "opacity 0.5s ease";  // 빠르게 밝아짐
+                                    overlay.style.opacity = "0";
+                                    button.disabled = false;  // 버튼 활성화
+                                }, 500);  // 어두운 화면 사라지는 시간
+
+                            }, 1000);  // 응답이 완전히 사라진 후
+
+                        }, 4000);  // 응답 유지 시간
+
+                    }, 300);  // 별이 사라진 후 응답 대기 시간
+
+                }, 1300);  // 별 사라짐 딜레이
+
+            }, 900);  // 두 번째 깜빡임 유지 시간
+
+        }, 400);  // 첫 깜빡임 후 밝아지는 시간
+
+    }, 800);  // 초기 어두워짐 시작 시간
+}
+
+
+</script>
+
+</body>
+</html>

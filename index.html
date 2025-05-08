@@ -1,171 +1,86 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>사랑을 기도하는 디지털 신전</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>사랑을 기도하는 디지털 신전</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+          margin: 0;
+          background: url('gif/spacebackround.gif') repeat;
+          background-size: auto;
+          font-family: 'Hahmlet', serif;
+          color: white;
+          text-align: center;
+          overflow: hidden;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center; /* 중앙 정렬 기본값 */
+          height: 100vh;
+        }
+
+        .entry-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transform: translateY(-10%); /* 중앙보다 약간 위로 이동 */
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        button {
+          font-family: 'Hahmlet', serif;
+          font-size: 16px;
+          padding: 6px 16px 8px 16px;
+          color: black;
+          background-color: #c0c0c0;
+          border: 2px solid #f0f0f0;
+          border-top-color: #ffffff;
+          border-left-color: #ffffff;
+          border-bottom-color: #808080;
+          border-right-color: #808080;
+          box-shadow: inset -1px -1px 0 #404040;
+          cursor: pointer;
+          margin-top: 12px;
+          z-index: 5;
+        }
+
+        button:active {
+          border-top-color: #808080;
+          border-left-color: #808080;
+          border-bottom-color: #ffffff;
+          border-right-color: #ffffff;
+          box-shadow: inset 1px 1px 0 #404040;
+        }
+
+    </style>
+    <script>
+        function enterTemple() {
+            // 1~27 중 5, 14, 23을 제외한 배열
+            const validGods = Array.from({ length: 27 }, (_, i) => i + 1).filter(num => ![5, 14, 23].includes(num));
+            // 유효한 번호 중 랜덤 선택
+            const godNumber = validGods[Math.floor(Math.random() * validGods.length)];
+            const godPage = `${godNumber}.html`; 
+            window.location.href = godPage;
+        }
+    </script>
 </head>
 <body>
-
-<!-- 신전 콜라주 영역 -->
-<div class="gif-collage collage-19" style="display: block;">
-  <img src="gif/19/flyingBalloon.gif" class="gif-19-1">
-  <img src="gif/19/elefant.gif" class="gif-19-2">
-  <img src="gif/19/party dancing GIF.gif" class="gif-19-3">
-  <img src="gif/19/Party Hard GIF by MOODMAN.gif" class="gif-19-4">
-  <img src="gif/19/Excited Season 7 GIF by The Office.gif" class="gif-19-5">
-  <img src="gif/19/helium_clowns.gif" class="gif-19-6">
-  <img src="gif/19/Welcome.gif" class="gif-19-7">
-  <img src="gif/19/stparty.gif" class="gif-19-8">
-  <img src="gif/19/partycake.gif" class="gif-19-9">
-  <img src="gif/19/Tigger.gif" class="gif-19-10">
-</div>
-
-<!-- 좌우 기둥 (신전 장식) -->
-<img src="gif/pillarfire.gif" class="pillar left">
-<img src="gif/pillarfire.gif" class="pillar right">
-
-<div class="main-layout">
-  <!-- 인형 -->
-  <div class="god">
-    <img src="img/god19.png" class="god-img">
-  </div>
-
-  <!-- 응답 텍스트 -->
-  <p class="response" id="response"></p>
-  <img src="gif/flash-01.gif" class="star-flash" id="starFlash">
-
-  <div class="action-wrap">
-    <div class="candle-group left"></div>
-
-    <div class="info-block">
-      <div class="god-name" id="godName"></div>
-      <button onclick="pray()">기도하기</button>
+    <div class="entry-container">
+        <p class="quote">
+            사랑은 기도다. 나는 기도한다.<br>
+            내가 좋아하는 사람들 모두 행복했으면 좋겠다.<br>
+            모든 사람의 소원이 이루어졌으면 좋겠다.<br><br>
+            — 마이조 오타로, 『좋아 좋아 너무 좋아 정말 사랑해』 중
+        </p>
+        <button class="entry-button" onclick="enterTemple()">신전 입장하기</button>
     </div>
-
-    <div class="candle-group right"></div>
-  </div>
-
-
-</div>
-
-
-
-
-<!-- 출처 푸터 -->
-<div class="footer-credit">
-  GIF 출처: <a href="https://gifcities.org/" target="_blank">gifcities</a> 및 <a href="https://giphy.com" target="_blank">giphy</a>
-</div>
-
-<script>
-  const gods = {
-    19: {
-      name: "파티의 신",
-      image: "img/god19.png",
-      responses: [
-        "춤추는 자는<br>지치지 아니하리라",
-        "너의 잔은<br>다시 차오르리라",
-        "모든 명단에<br>네 이름 있으리라",
-        "기억나지 않는 순간조차<br>너의 것이리라",
-        "첫 잔을 함께 들 자<br>곁에 있으리라"
-      ]
-    }
-  };
-
-  const currentGod = 19; // 현재 보여줄 신의 번호
-
-  const flash = document.getElementById("starFlash");
-  const responseEl = document.getElementById("response");
-  const godNameEl = document.getElementById("godName");
-  const godImgEl = document.querySelector(".god-img");
-  const gifCollage = document.getElementById("gifCollage");
-  const left = document.querySelector('.candle-group.left');
-  const right = document.querySelector('.candle-group.right');
-
-  let isCooldown = false;
-  let activeResponseTimeout;
-
-  // 🕯️ 촛불 좌우에 3개씩 배치
-  for (let i = 0; i < 3; i++) {
-    const imgL = document.createElement('img');
-    imgL.src = 'gif/pillarcandle.gif';
-    imgL.className = 'candle';
-    left.appendChild(imgL);
-
-    const imgR = document.createElement('img');
-    imgR.src = 'gif/pillarcandle.gif';
-    imgR.className = 'candle';
-    right.appendChild(imgR);
-  }
-
-  // ✨ gif 콜라주 삽입
-  function loadGifSet(godNumber) {
-    gifCollage.innerHTML = "";
-    for (let i = 1; i <= 5; i++) {
-      const img = document.createElement("img");
-      img.src = `gif/${godNumber}/gif${i}.gif`;
-      img.className = "collage-gif";
-      gifCollage.appendChild(img);
-    }
-  }
-
-  // 🙏 기도 기능
-  function pray() {
-    if (isCooldown) return;
-    isCooldown = true;
-
-    const godResponses = gods[currentGod].responses;
-    const r = Math.floor(Math.random() * godResponses.length);
-    const godColorClass = `god-color-${currentGod}`;
-
-    flash.style.opacity = "0";
-    clearTimeout(activeResponseTimeout);
-
-    // 응답 텍스트와 컬러 적용
-    responseEl.className = `response ${godColorClass}`;
-    responseEl.innerHTML = godResponses[r].replace(/<span class='mbr'> <\/span>/g, "<br>");
-
-    // 애니메이션 적용
-    requestAnimationFrame(() => {
-      responseEl.classList.add("fade");
-    });
-
-    // 응답 제거만 (클래스는 유지)
-    activeResponseTimeout = setTimeout(() => {
-      responseEl.innerHTML = "";
-      isCooldown = false;
-      flash.style.opacity = "0.8";
-    }, 3000);
-  }
-
-
-  function showCollageFor(godNumber) {
-    document.querySelectorAll('.gif-collage').forEach(el => {
-      el.style.display = 'none';
-    });
-    const target = document.querySelector(`.collage-${godNumber}`);
-    if (target) target.style.display = 'block';
-  }
-
-  // 🔄 로딩 시 인형/이름/GIF 셋팅
-  function loadGod(godNumber) {
-    const god = gods[godNumber];
-    const nameEl = document.querySelector('.god-name');
-
-    // 신 이름 바꾸기
-    nameEl.innerText = god.name;
-
-    // 컬러 클래스 적용
-    godNameEl.className = `god-name god-color-${godNumber}`;
-    responseEl.className = `response god-color-${godNumber}`;
-  }
-
-  // ▶️ 페이지 로딩 시 초기화
-  loadGod(currentGod);
-</script>
-
-
-
 </body>
 </html>
