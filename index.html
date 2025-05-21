@@ -1,86 +1,171 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>사랑을 기도하는 디지털 신전</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap" rel="stylesheet">
-    <style>
-        body {
-          margin: 0;
-          background: url('gif/spacebackround.gif') repeat;
-          background-size: auto;
-          font-family: 'Hahmlet', serif;
-          color: white;
-          text-align: center;
-          overflow: hidden;
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center; /* 중앙 정렬 기본값 */
-          height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <title>사랑을 기도하는 디지털 신전</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: url('gif/spacebackround.gif') repeat;
+      background-size: auto;
+      font-family: 'Hahmlet', serif;
+      color: white;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+    }
 
-        .entry-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            transform: translateY(-10%); /* 중앙보다 약간 위로 이동 */
-        }
+    .entry-container {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: auto;
+      max-width: 90vw;
+      text-align: center;
+    }
 
-        .quote {
-            font-size: 1.2rem;
-            margin: 0;
-            line-height: 1.6;
-        }
+    .quote-line {
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 2.5rem;
+      line-height: 1.5;
+      letter-spacing: 0.05em;
+    }
 
-        button {
-          font-family: 'Hahmlet', serif;
-          font-size: 16px;
-          padding: 6px 16px 8px 16px;
-          color: black;
-          background-color: #c0c0c0;
-          border: 2px solid #f0f0f0;
-          border-top-color: #ffffff;
-          border-left-color: #ffffff;
-          border-bottom-color: #808080;
-          border-right-color: #808080;
-          box-shadow: inset -1px -1px 0 #404040;
-          cursor: pointer;
-          margin-top: 12px;
-          z-index: 5;
-        }
+    .quote-line span {
+      display: inline-block;
+      transition: text-shadow 0.3s ease, transform 0.3s ease;
+    }
 
-        button:active {
-          border-top-color: #808080;
-          border-left-color: #808080;
-          border-bottom-color: #ffffff;
-          border-right-color: #ffffff;
-          box-shadow: inset 1px 1px 0 #404040;
-        }
+    .quote-line span.hangul {
+      cursor: pointer;
+    }
 
-    </style>
-    <script>
-        function enterTemple() {
-            // 1~27 중 5, 14, 23을 제외한 배열
-            const validGods = Array.from({ length: 27 }, (_, i) => i + 1).filter(num => ![5, 14, 23].includes(num));
-            // 유효한 번호 중 랜덤 선택
-            const godNumber = validGods[Math.floor(Math.random() * validGods.length)];
-            const godPage = `${godNumber}.html`; 
-            window.location.href = godPage;
-        }
-    </script>
+    .quote-line span.hangul:hover {
+      text-shadow: 0 0 10px rgba(180, 180, 255, 1), 0 0 15px rgba(200, 100, 255, 0.9);
+      
+    }
+
+    .quote-line span.source {
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: inline-block;
+      margin-top: 1em;
+      letter-spacing: 0.5px;
+    }
+
+
+    button {
+      font-family: 'Hahmlet', serif;
+      font-size: 18px;
+      padding: 8px 20px 10px 20px;
+      color: black;
+      background-color: #c0c0c0;
+      border: 2px solid #f0f0f0;
+      border-top-color: #ffffff;
+      border-left-color: #ffffff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      box-shadow: inset -1px -1px 0 #404040;
+      cursor: pointer;
+      margin-top: 36px;
+      z-index: 10;
+    }
+
+    button:active {
+      border-top-color: #808080;
+      border-left-color: #808080;
+      border-bottom-color: #ffffff;
+      border-right-color: #ffffff;
+      box-shadow: inset 1px 1px 0 #404040;
+    }
+
+    .symbol {
+      position: absolute;
+      width: 120px;
+      opacity: 0;
+      animation: gentleFadeIn 2.5s ease forwards;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes gentleFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+
+.space {
+  display: inline-block;
+  width: 0.25em;
+}
+</style>
 </head>
 <body>
-    <div class="entry-container">
-        <p class="quote">
-            사랑은 기도다. 나는 기도한다.<br>
-            내가 좋아하는 사람들 모두 행복했으면 좋겠다.<br>
-            모든 사람의 소원이 이루어졌으면 좋겠다.<br><br>
-            — 마이조 오타로, 『좋아 좋아 너무 좋아 정말 사랑해』 중
-        </p>
-        <button class="entry-button" onclick="enterTemple()">신전 입장하기</button>
-    </div>
+
+  <div class="entry-container">
+    <p class="quote-line">
+      <span class="hangul" data-char="사1">사</span><span class="hangul" data-char="랑">랑</span><span class="hangul" data-char="은">은</span><span class="space"> </span><span class="hangul" data-char="기">기</span><span class="hangul" data-char="도">도</span><span class="hangul" data-char="다">다</span>.<br>
+      <span class="hangul" data-char="나">나</span><span class="hangul" data-char="는">는</span><span class="space"> </span><span class="hangul" data-char="기">기</span><span class="hangul" data-char="도">도</span><span class="hangul" data-char="한">한</span><span class="hangul" data-char="다">다</span>.<br>
+      <span class="hangul" data-char="내">내</span><span class="hangul" data-char="가">가<span class="space"> </span></span><span class="hangul" data-char="좋">좋</span><span class="hangul" data-char="아">아</span><span class="hangul" data-char="하">하</span><span class="hangul" data-char="는">는</span><span class="space"> </span><span class="hangul" data-char="사">사</span><span class="hangul" data-char="람">람</span><span class="hangul" data-char="들">들</span><span class="space"> </span><span class="hangul" data-char="모">모</span><span class="hangul" data-char="두">두</span><span class="space"> </span><span class="hangul" data-char="행">행</span><span class="hangul" data-char="복">복</span><span class="hangul" data-char="했">했</span><span class="hangul" data-char="으">으</span><span class="hangul" data-char="면">면</span><span class="space"> </span><span class="hangul" data-char="좋">좋</span><span class="hangul" data-char="겠">겠</span><span class="hangul" data-char="다">다</span>.<br>
+      <span class="hangul" data-char="모">모</span><span class="hangul" data-char="든">든</span><span class="space"> </span><span class="hangul" data-char="사">사</span><span class="hangul" data-char="람">람</span><span class="hangul" data-char="의">의</span><span class="space"> </span><span class="hangul" data-char="소">소</span><span class="hangul" data-char="원">원</span><span class="hangul" data-char="이">이</span><span class="space"> </span><span class="hangul" data-char="이">이</span><span class="hangul" data-char="루">루</span><span class="hangul" data-char="어">어</span><span class="hangul" data-char="졌">졌</span><span class="hangul" data-char="으">으</span><span class="hangul" data-char="면">면</span><span class="space"> </span><span class="hangul" data-char="좋">좋</span><span class="hangul" data-char="겠">겠</span><span class="hangul" data-char="다">다</span>.<br>
+      <span class="source">— 마이조 오타로, 『좋아 좋아 너무 좋아 정말 사랑해』 중</span>
+    </p>
+    <button onclick="enterTemple()">신전 입장하기</button>
+  </div>
+
+  <script>
+    const charToSymbolMap = {
+      '사1': 'img/god1.png', '랑': 'img/letter2.png', '은': 'img/letter3.png',
+      '기': 'img/letter4.png', '도': 'img/letter5.png', '다': 'img/god3.png',
+      '나': 'img/god7.png', '는': 'img/god10.png', '한': 'img/god12.png',
+      '내': 'img/god17.png', '가': 'img/god8.png', '좋': 'img/god21.png',
+      '아': 'img/god4.png', '하': 'img/god13.png', '사': 'img/god3.png',
+      '람': 'img/god11.png', '들': 'img/god2.png', '모': 'img/god6.png',
+      '두': 'img/god15.png', '행': 'img/god22.png', '복': 'img/god19.png',
+      '했': 'img/god26.png', '으': 'img/god20.png', '면': 'img/god14.png',
+      '겠': 'img/god23.png', '든': 'img/god18.png', '의': 'img/god25.png',
+      '소': 'img/god7.png', '원': 'img/god27.png', '이': 'img/god17.png',
+      '루': 'img/god6.png', '어': 'img/god13.png', '졌': 'img/god2.png'
+    };
+
+    function getSafeRandomPosition() {
+      let top;
+      do {
+        top = Math.random() * 100;
+      } while (top > 40 && top < 60); // 중앙 영역 피하기
+      const left = Math.random() * 90 + 5;
+      return { top: `${top}vh`, left: `${left}vw` };
+    }
+
+    document.querySelectorAll('.quote-line span.hangul').forEach(span => {
+      span.addEventListener('click', () => {
+        if (span.classList.contains('clicked')) return;
+        span.classList.add('clicked');
+
+        const char = span.dataset.char;
+        const imgSrc = charToSymbolMap[char];
+        if (!imgSrc) return;
+
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.className = 'symbol';
+        const pos = getSafeRandomPosition();
+        img.style.top = pos.top;
+        img.style.left = pos.left;
+        document.body.appendChild(img);
+      });
+    });
+
+    function enterTemple() {
+      const validGods = Array.from({ length: 27 }, (_, i) => i + 1).filter(num => ![5, 14, 23].includes(num));
+      const godNumber = validGods[Math.floor(Math.random() * validGods.length)];
+      const godPage = `${godNumber}.html`;
+      window.location.href = godPage;
+    }
+  </script>
+
 </body>
 </html>
