@@ -3,7 +3,7 @@ body {
   margin: 0;
   background: url('gif/spacebackround.gif') repeat;
   background-size: auto;
-  font-family: 'Hahmlet', serif;
+  font-family: 'Orbit', sans-serif;
   color: white;
   text-align: center;
   overflow: hidden;
@@ -108,7 +108,7 @@ body {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: white;
-  font-family: 'Hahmlet', serif;
+  font-family: 'Orbit', serif;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.25); /* 💫 살짝 빛나는 효과 */
   letter-spacing: 0.05em;
   z-index: 5;
@@ -185,7 +185,7 @@ body {
 
 /* 5. 기도하기 버튼 */
 button {
-  font-family: 'Hahmlet', serif;
+  font-family: 'Orbit', serif;
   font-size: 16px;
   padding: 6px 16px 8px 16px;
   color: black;
